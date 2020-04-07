@@ -13,9 +13,7 @@ class http_request():
 
 
     def post_request(self, url, data):
-        cookies = {
-            'JSESSIONID': '73675862C2B2FD40BB44197C25DE1978'
-        }
+
 
         result = requests.post(url=url, data=data, cookies=cookies)
         result = result.json()
@@ -40,19 +38,22 @@ class http_request():
 
 
 if __name__ =="__main__":
-    cookies = {
-        'JSESSIONID': '73675862C2B2FD40BB44197C25DE1978'
-    }
-    # data = {
-    #     'sensorNumbe' : '7878',
-    #     'filterFactor' : '2',
-    #     'compensate' : '1',
-    #     'remark' : '',
-    #     'sensorType' : '1'
-    # }
 
-    req_url = 'http://www.zoomwell.cn/clbs/v/TransduserMgt/add'
-    data = 'sensorNumber=7878&filterFactor=2&compensate=1&remark=&sensorType=1'
-    req_result = post_request(req_url, data, cookies)
-    print(req_result)
+    login_url = 'http://192.168.24.142:8080/clbs/j_spring_security_check'
+    login_data = {
+        'username': 'jiangtianshi',
+        'password': '0000000'
+    }
+    s = requests.session()
+    r = requests.post(url= login_url, data = login_data)
+
+    jsession = r.headers['Cookie']
+    print(jsession)
+
+
+
+    # req_url = 'http://www.zoomwell.cn/clbs/v/TransduserMgt/add'
+    # data = 'sensorNumber=7878&filterFactor=2&compensate=1&remark=&sensorType=1'
+    # req_result = post_request(req_url, data, cookies)
+    # print(req_result)
 
