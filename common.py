@@ -1,9 +1,9 @@
 import requests
-
+import json
 class common(object):
 
     def __init__(self):
-        self.url = 'http://www.zoomwell.cn/clbs'
+        self.url = 'http://192.168.24.142:8080/clbs/j_spring_security_check'
 
 
     '''
@@ -30,9 +30,19 @@ class common(object):
 
 
 if __name__ == '__main__':
-    cookies = {
-        'JSESSIONID': 'EDCAFE2FB5B838A7426CE6776B7FAEF3'
+    session = requests.session()
+    login_url = 'http://192.168.24.142:8080/clbs/j_spring_security_check'
+    data1 = 'username=jiangtianshi&key=&password=000000&captchaCode='
+    header = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
+
     }
+    req = session.post(login_url, data1, header)
+    json1 = req.text
+    dic = json.loads(json1)
+    token = dic['Cookie']
+    print(token)
 
     # 新增温度传感器
     req_url = 'http://www.zoomwell.cn/clbs/v/TransduserMgt/add'
@@ -45,7 +55,7 @@ if __name__ == '__main__':
         'sensorType' : 1
 
     }
-    req_result = requests.post(req_url, data, cookies=cookies)
+    req_result = requests.post(req_url, data, cookies=token)
 
     print(req_result.json())
 
@@ -57,7 +67,7 @@ if __name__ == '__main__':
         'username':'SAE-112'
     }
 
-    req_result1 = requests.post(req_url1, data, cookies=cookies )
+    req_result1 = requests.post(req_url1, data, cookies=token )
     req_result1.token
     print(req_result1.json())
 
