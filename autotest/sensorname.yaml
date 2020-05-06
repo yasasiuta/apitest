@@ -1,0 +1,34 @@
+#- "test_data"
+#    'shux':'正',
+#    'testdata':'测试数据1',
+#    'result':'测试数据1'
+#- "test_data2"
+#    'shux':'反',
+#    'testdata':'#@#$#@$',
+#    'result':'请输入中文、字母、数字或特殊符号*、-、_、#'
+#- "test_data3"
+#    {
+#      'shux': '正',
+#      'testdata': 'D:\temp.xls',
+#      'result': "导入结果：\n导入成功1条数据,导入失败0条数据。"
+#    }
+
+f3eureka809transmit:
+    container_name: transmit-809
+    image: 192.168.24.250:5000/f3/f3-eureka-809-transmit:2.2.3.2-beta
+    mem_limit: 3G
+    restart: always
+    expose:
+     - "8082"
+    extra_hosts:
+     - "zwlbs121:192.168.24.121"
+     - "zwlbs122:192.168.24.122"
+     - "zwlbs123:192.168.24.123"
+     - "zwlbs124:192.168.24.124"
+     - "zwlbs125:192.168.24.125"
+     - "zwlbs126:192.168.24.126"
+     - "zwlbs127:192.168.24.127"
+    ports:
+     - "8023:8023"
+     - "8022:8022"
+     - "53996:53996"

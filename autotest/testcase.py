@@ -5,37 +5,12 @@ import time
 from selenium.webdriver.support.ui import Select
 import ddt
 
-test_data = [
-    {
-        'shux':'zheng',
-        'testdata':'测试数据1',
-        'result':'测试数据1'
-    },
-    {
-        'shux':'fan',
-        'testdata':'#@#$#@$',
-        'result':'请输入中文、字母、数字或特殊符号*、-、_、#'
-    }
-]
 
-test_data2 = [
-     {
-         'shux': 'zheng',
-         'testdata': '测试数据1',
-         'result': u'我本将心向明月，奈何明月照沟渠，不行您再用其他方式查一下？'
-     }
- ]
 
-test_data3 = [
-     {
-         'shux': 'zheng',
-         'testdata': r'D:\\temp.xls',
-         'result': u"导入结果：\n导入成功1条数据,导入失败0条数据。"
-     }
- ]
 
-@ddt.ddt
-class sys000(unittest.TestCase):
+
+@ddt
+class TestCasetest(unittest.TestCase):
 
     def setUp(self):
         self.wb = webdriver.Chrome(r'D:\webdriver\chromedriver')
@@ -64,10 +39,9 @@ class sys000(unittest.TestCase):
         time.sleep(5)
         self.wb.close()
 
-    @ddt.data(*test_data)
-    @ddt.unpack
 
-    def test_1_addtempsensor(self,shux,testdata,result):
+
+    def test_addtempsensor(self,shux,testdata,result):
 
         #新增温度传感器
         operation_meau = self.wb.find_element_by_id('dropdownMenu1')
@@ -102,8 +76,7 @@ class sys000(unittest.TestCase):
             print(tishi)
             self.assertEqual(tishi,result)
 
-    @ddt.data(*test_data2)
-    @ddt.unpack
+
 
     def test_2_delatetempsensor(self, shux, testdata, result):
 
@@ -125,8 +98,7 @@ class sys000(unittest.TestCase):
         if shux == 'zheng':
             self.assertEqual(result,dele,msg = '删除失败')
 
-    @ddt.data(*test_data3)
-    @ddt.unpack
+
 
     def test_3_darutempsensor(self, shux, testdata, result):
         #导入温度传感器
@@ -162,16 +134,16 @@ class sys000(unittest.TestCase):
 
 
 
-    # def test_2_deletesensor(self):
-    #     # 进入应用管理
-    #     application_management = self.wb.find_element_by_id('9f5ea704-6a90-11e6-8b77-86f30ca893d3')
-    #     application_management.click()
-    #     self.wb.implicitly_wait(3)
-    #     # 温度传感器管理
-    #     temp = self.wb.find_element_by_id('32e16952-622b-11e7-907b-a6006ad3dba0')
-    #     temp.click()
-    #     self.wb.implicitly_wait(3)
-    #     temp_mage = self.wb.find_element_by_id('3d128b3a-622c-11e7-907b-a6006ad3dba0')
-    #     temp_mage.click()
-    #     self.wb.implicitly_wait(3)
+    def test_2_deletesensor(self):
+        # 进入应用管理
+        application_management = self.wb.find_element_by_id('9f5ea704-6a90-11e6-8b77-86f30ca893d3')
+        application_management.click()
+        self.wb.implicitly_wait(3)
+        # 温度传感器管理
+        temp = self.wb.find_element_by_id('32e16952-622b-11e7-907b-a6006ad3dba0')
+        temp.click()
+        self.wb.implicitly_wait(3)
+        temp_mage = self.wb.find_element_by_id('3d128b3a-622c-11e7-907b-a6006ad3dba0')
+        temp_mage.click()
+        self.wb.implicitly_wait(3)
 
