@@ -1,6 +1,7 @@
 import xlrd
 import xml.dom.minidom
 import yaml
+import csv
 '''
 excel文件读取
 '''
@@ -29,7 +30,21 @@ class read_file():
 
     def read_yml(filename):
         with open(filename, 'r',encoding="utf-8") as f:
-            print(yaml.load(f.read(), Loader=yaml.Loader))
+            # print(yaml.load(f.read(), Loader=yaml.Loader))
+            data = yaml.load(f.read())
+            return data
+
+    def read_csv(filepath):
+        value_row = []
+        with open(filepath, encoding='utf-8') as f:
+            data = csv.reader(f)
+            print(data)
+            next(data)
+            for i in data:
+                value_row.append(i)
+            print(value_row)
+            return value_row
+
 
 
 
@@ -45,7 +60,15 @@ if __name__ == '__main__':
     # sheetname = 'Export'
     # read_file.read_excel(filepath,sheetname)
     # read_file.read_xml('test77.xml')
-    read_file.read_yml('sensorname.yaml')
+    # read_file.read_csv(r'C:\Users\zwkj\Desktop\轨迹有效性报表.csv')
+    testd = read_file.read_yml('./sensorname.yaml')
+    print(testd)
+    data1 = testd['test_data1']
+    print(data1)
+    data2 = testd['test_data2']
+    print(data2)
+    data3 = testd['test_data3']
+    print(data3)
 
 
 

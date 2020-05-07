@@ -4,13 +4,14 @@ from selenium import webdriver
 import time
 from selenium.webdriver.support.ui import Select
 import ddt
+from autotest.fileread import read_file
 
 
 
 
-
-@ddt
+@ddt.ddt
 class TestCasetest(unittest.TestCase):
+    testd = read_file.read_yml('./sensorname.yaml')
 
     def setUp(self):
         self.wb = webdriver.Chrome(r'D:\webdriver\chromedriver')
@@ -39,9 +40,9 @@ class TestCasetest(unittest.TestCase):
         time.sleep(5)
         self.wb.close()
 
-
-
-    def test_addtempsensor(self,shux,testdata,result):
+    @ddt.data(*testd['test_data1'])
+    @ddt.unpack
+    def test_1_addtempsensor(self,shux,testdata,result):
 
         #新增温度传感器
         operation_meau = self.wb.find_element_by_id('dropdownMenu1')
@@ -76,8 +77,8 @@ class TestCasetest(unittest.TestCase):
             print(tishi)
             self.assertEqual(tishi,result)
 
-
-
+    @ddt.data(*testd['test_data2'])
+    @ddt.unpack
     def test_2_delatetempsensor(self, shux, testdata, result):
 
         #删除新增的温度传感器
@@ -98,7 +99,8 @@ class TestCasetest(unittest.TestCase):
         if shux == 'zheng':
             self.assertEqual(result,dele,msg = '删除失败')
 
-
+    @ddt.data(*testd['test_data3'])
+    @ddt.unpack
 
     def test_3_darutempsensor(self, shux, testdata, result):
         #导入温度传感器
@@ -118,6 +120,11 @@ class TestCasetest(unittest.TestCase):
         if shux == 'zheng':
             self.assertEqual(result,res)
         self.wb.find_element_by_css_selector('a[class="layui-layer-btn0"]').click()
+
+
+
+if __name__ == "__main__":
+    unittest.main()
 
 
 

@@ -1,15 +1,15 @@
-#- test_data:
-#    shux : zheng
-#    testdata : 测试数据1
-#    result : 测试数据1
+test_data1:
+  - shux : zheng
+    testdata : 测试数据1
+    result : 测试数据1
 
-- test_data2:
-    shux : fan
-    testdata : "%^&%^&%^"
-    result : 请输入中文、字母、数字或特殊符号*、-、_、#
+test_data2:
+  - shux : zheng
+    testdata : 测试数据1
+    result : 我本将心向明月，奈何明月照沟渠，不行您再用其他方式查一下？
 
-- test_data3:
-    shux : fan
+test_data3:
+  - shux : fan
     testdata : "D:\temp.xls"
     result : "导入结果：\n导入成功1条数据,导入失败0条数据。"
 
